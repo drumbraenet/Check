@@ -225,19 +225,65 @@
       },
       {
         "id": "segoe_ui_font",
-        "type": "source_content",
-        "pattern": "Segoe\\s+UI(?:\\s+(?:Webfont|Symbol|Historic|Emoji))?",
+        "type": "code_driven",
+        "code_logic": {
+          "type": "all_of",
+          "operations": [
+            {
+              "type": "substring_present",
+              "values": [
+                "segoe ui"
+              ]
+            },
+            {
+              "type": "substring_present",
+              "values": [
+                "loginfmt",
+                "idsibutton9",
+                "idpartnerpl",
+                "urlmsasignup",
+                "aadcdn.msauth.net",
+                "aadcdn.msftauthimages.net"
+              ]
+            }
+          ]
+        },
         "description": "Microsoft's Segoe UI font family variants (supporting evidence only)",
         "weight": 0.5,
         "category": "secondary"
       },
       {
         "id": "ms_container_layout",
-        "type": "css_pattern",
-        "patterns": [
-          "display:\\s*grid.*place-items:\\s*center",
-          "height:\\s*100vh.*width:\\s*100vw"
-        ],
+        "type": "code_driven",
+        "code_logic": {
+          "type": "all_of",
+          "operations": [
+            {
+              "type": "pattern_count",
+              "patterns": [
+                "(?:^|[^-\\w])height\\s*:\\s*100vh\\s*;"
+              ],
+              "flags": "i",
+              "min_count": 1
+            },
+            {
+              "type": "pattern_count",
+              "patterns": [
+                "(?:^|[^-\\w])width\\s*:\\s*100vw\\s*;"
+              ],
+              "flags": "i",
+              "min_count": 1
+            },
+            {
+              "type": "substring_present",
+              "values": [
+                "loginfmt",
+                "idsibutton9",
+                "#i0116"
+              ]
+            }
+          ]
+        },
         "description": "Microsoft login container layout (supporting evidence only)",
         "weight": 0.5,
         "category": "secondary"
@@ -245,7 +291,7 @@
       {
         "id": "ms_external_css",
         "type": "source_content",
-        "pattern": "(?:href=[\"'].*(?:aadcdn\\.msauth|aadcdn\\.msftauth|login\\.microsoftonline).*\\.css[\"']|src=[\"'].*(?:aadcdn\\.msauth|login\\.microsoft).*\\.css[\"'])",
+        "pattern": "(?:<(?:link|script)[^>]+(?:href|src)=[\"']https?:\\/\\/[^\"']*(?:aadcdn\\.msauth\\.net|aadcdn\\.msftauth\\.net|aadcdn\\.msftauthimages\\.net|login\\.microsoftonline\\.com)[^\"']*\\.css(?:\\?[^\"']*)?[\"'][^>]*>)",
         "description": "Microsoft login-specific CSS files (strong evidence)",
         "weight": 3,
         "category": "secondary"

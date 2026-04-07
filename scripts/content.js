@@ -1342,7 +1342,12 @@ if (window.checkExtensionLoaded) {
         try {
           let found = false;
 
-          if (element.type === "source_content") {
+          if (element.type === "code_driven" && element.code_logic) {
+            found = evaluatePrimitivePortable(pageSource, element.code_logic, {
+              cache: new Map(),
+              currentUrl: window.location.href,
+            });
+          } else if (element.type === "source_content") {
             const regex = new RegExp(element.pattern, "i");
             found = regex.test(pageSource);
           } else if (element.type === "page_title") {
