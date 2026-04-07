@@ -2364,9 +2364,10 @@ if (window.checkExtensionLoaded) {
     };
   }
 
+  const portableDetectionPrimitives = getPortableDetectionPrimitives();
+
   function evaluatePrimitivePortable(source, operation, context = {}) {
-    const primitives = getPortableDetectionPrimitives();
-    const primitive = primitives[operation?.type];
+    const primitive = portableDetectionPrimitives[operation?.type];
     if (!primitive) {
       return false;
     }
